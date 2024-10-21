@@ -1,0 +1,55 @@
+{
+    "conditions": {
+        "applications": {
+            "includeApplications": [
+                "All"
+            ],
+            "excludeApplications": [
+                "810dcf14-1858-4bf2-8134-4c369fa3235b"
+            ],
+            "includeUserActions": [],
+            "includeAuthenticationContextClassReferences": [],
+            "applicationFilter": null,
+            "globalSecureAccess": null
+        },
+        "clients": null,
+        "users": {
+            "includeUsers": [ 
+                "none"
+            ],
+            "excludeUsers": [],
+            "includeGroups": [],
+            "excludeGroups": [],
+            "includeRoles": [],
+            "excludeRoles": [],
+            "includeGuestsOrExternalUsers": null,
+            "excludeGuestsOrExternalUsers": null
+        },
+        "clientApplications": null,
+        "platforms": null,
+        "locations": null,
+        "userRiskLevels": [],
+        "signInRiskLevels": [],
+        "insiderRiskLevels": null,
+        "signInRiskDetections": null,
+        "clientAppTypes": [
+            "all"
+        ],
+        "times": null,
+        "devices": null,
+        "servicePrincipalRiskLevels": [],
+        "authenticationFlows": null
+    },
+    "displayName": "Passkey Rollout",
+    "grantControls": {
+        "operator": "OR",
+        "builtInControls": [],
+        "customAuthenticationFactors": [],
+        "termsOfUse": [],
+        "authenticationStrength": {
+            "id": "00000000-0000-0000-0000-000000000004"
+        }
+    },
+    "sessionControls": null,
+    "state": "enabledForReportingButNotEnforced"
+}

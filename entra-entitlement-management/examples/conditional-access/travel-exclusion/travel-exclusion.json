@@ -1,0 +1,59 @@
+{
+    "conditions": {
+        "applications": {
+            "includeApplications": [
+                "All"
+            ],
+            "excludeApplications": [],
+            "includeUserActions": [],
+            "includeAuthenticationContextClassReferences": [],
+            "globalSecureAccess": null
+        },
+        "clients": null,
+        "users": {
+            "includeUsers": [
+                "All"
+            ],
+            "excludeUsers": [],
+            "includeGroups": [],
+            "excludeGroups": [],
+            "includeRoles": [],
+            "excludeRoles": [],
+            "includeGuestsOrExternalUsers": null,
+            "excludeGuestsOrExternalUsers": null
+        },
+        "clientApplications": null,
+        "platforms": null,
+        "locations": {
+            "includeLocations": [
+                "All"
+            ],
+            "excludeLocations": [
+                "AllTrusted"
+            ]
+        },
+        "userRiskLevels": [],
+        "signInRiskLevels": [],
+        "insiderRiskLevels": null,
+        "signInRiskDetections": null,
+        "clientAppTypes": [
+            "all"
+        ],
+        "times": null,
+        "devices": null,
+        "servicePrincipalRiskLevels": [],
+        "authenticationFlows": null
+    },
+    "displayName": "Block unallowed countries",
+    "grantControls": {
+        "operator": "AND",
+        "builtInControls": [
+            "block"
+        ],
+        "customAuthenticationFactors": [],
+        "termsOfUse": [],
+        "authenticationStrength": null
+    },
+    "sessionControls": null,
+    "state": "enabledForReportingButNotEnforced"
+}

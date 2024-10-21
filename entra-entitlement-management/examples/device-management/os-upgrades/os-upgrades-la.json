@@ -1,0 +1,299 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Condition": {
+                "actions": {
+                    "For_each": {
+                        "actions": {
+                            "Add_Devices_to_Group": {
+                                "inputs": {
+                                    "authentication": {
+                                        "audience": "https://graph.microsoft.com",
+                                        "type": "ManagedServiceIdentity"
+                                    },
+                                    "body": {
+                                        "@@odata.id": "https://graph.microsoft.com/v1.0/directoryObjects/@{items('For_each')['id']}"
+                                    },
+                                    "headers": {
+                                        "Content-Type": "application/json"
+                                    },
+                                    "method": "POST",
+                                    "uri": "https://graph.microsoft.com/v1.0/groups/d8f352be-2017-4f5a-b8f8-1d6e76c935a7/members/$ref"
+                                },
+                                "runtimeConfiguration": {
+                                    "contentTransfer": {
+                                        "transferMode": "Chunked"
+                                    }
+                                },
+                                "type": "Http"
+                            }
+                        },
+                        "foreach": "@body('Get_Users_Owned_Devices')['value']",
+                        "runAfter": {
+                            "Get_Users_Owned_Devices": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "Foreach"
+                    },
+                    "Get_Users_Owned_Devices": {
+                        "inputs": {
+                            "authentication": {
+                                "audience": "https://graph.microsoft.com",
+                                "type": "ManagedServiceIdentity"
+                            },
+                            "headers": {
+                                "Content-Type": "application/json"
+                            },
+                            "method": "GET",
+                            "uri": "https://graph.microsoft.com/v1.0/users/@{body('Get_requestor_information_from_EM')?['PrincipalName']}/ownedDevices?$select=Id"
+                        },
+                        "runAfter": {
+                            "Get_requestor_information_from_EM": [
+                                "Succeeded"
+                            ]
+                        },
+                        "runtimeConfiguration": {
+                            "contentTransfer": {
+                                "transferMode": "Chunked"
+                            }
+                        },
+                        "type": "Http"
+                    },
+                    "Get_requestor_information_from_EM": {
+                        "inputs": {
+                            "content": "@triggerBody()?['Requestor']",
+                            "schema": {
+                                "properties": {
+                                    "AltSecId": {},
+                                    "CleanupScheduledDateTime": {},
+                                    "ConnectedOrganization": {},
+                                    "ConnectedOrganizationId": {},
+                                    "CreatedDateTime": {},
+                                    "DisplayName": {
+                                        "type": "string"
+                                    },
+                                    "Email": {
+                                        "type": "string"
+                                    },
+                                    "Id": {
+                                        "type": "string"
+                                    },
+                                    "ObjectId": {
+                                        "type": "string"
+                                    },
+                                    "OnPremisesSecurityIdentifier": {},
+                                    "PrincipalName": {
+                                        "type": "string"
+                                    },
+                                    "SubjectLifecycle": {
+                                        "type": "string"
+                                    },
+                                    "SubjectType": {
+                                        "type": "string"
+                                    },
+                                    "Tenant": {},
+                                    "Type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "ParseJson"
+                    }
+                },
+                "else": {
+                    "actions": {}
+                },
+                "expression": {
+                    "and": [
+                        {
+                            "equals": [
+                                "@{triggerBody()?['AccessPackageCatalog']?['Id']}",
+                                "11499281-a548-4e5f-989b-b89348e3250e"
+                            ]
+                        }
+                    ]
+                },
+                "runAfter": {},
+                "type": "If"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "schema": {
+                        "properties": {
+                            "AccessPackage": {
+                                "properties": {
+                                    "Description": {
+                                        "description": "AccessPackage-Description",
+                                        "type": "string"
+                                    },
+                                    "DisplayName": {
+                                        "description": "AccessPackage-DisplayName",
+                                        "type": "string"
+                                    },
+                                    "Id": {
+                                        "description": "AccessPackage-Id",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "AccessPackageAssignmentRequestId": {
+                                "type": "string"
+                            },
+                            "AccessPackageCatalog": {
+                                "properties": {
+                                    "Description": {
+                                        "description": "AccessPackageCatalog-Description",
+                                        "type": "string"
+                                    },
+                                    "DisplayName": {
+                                        "description": "AccessPackageCatalog-DisplayName",
+                                        "type": "string"
+                                    },
+                                    "Id": {
+                                        "description": "AccessPackageCatalog-Id",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "Answers": {
+                                "type": "array"
+                            },
+                            "Assignment": {
+                                "properties": {
+                                    "AssignmentPolicy": {
+                                        "properties": {
+                                            "DisplayName": {
+                                                "description": "AssignmentPolicy-DisplayName",
+                                                "type": "string"
+                                            },
+                                            "Id": {
+                                                "description": "AssignmentPolicy-Id",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "Id": {
+                                        "description": "Assignment-Id",
+                                        "type": "string"
+                                    },
+                                    "State": {
+                                        "description": "Assignment-State",
+                                        "type": "string"
+                                    },
+                                    "Status": {
+                                        "description": "Assignment-Status",
+                                        "type": "string"
+                                    },
+                                    "Target": {
+                                        "properties": {
+                                            "ConnectedOrganization": {
+                                                "properties": {
+                                                    "Description": {
+                                                        "description": "Assignment-Target-ConnectedOrganization-Description",
+                                                        "type": "string"
+                                                    },
+                                                    "DisplayName": {
+                                                        "description": "Assignment-Target-ConnectedOrganization-DisplayName",
+                                                        "type": "string"
+                                                    },
+                                                    "Id": {
+                                                        "description": "Assignment-Target-ConnectedOrganization-Id",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "DisplayName": {
+                                                "description": "Assignment-Target-DisplayName",
+                                                "type": "string"
+                                            },
+                                            "Id": {
+                                                "description": "Assignment-Target-Id",
+                                                "type": "string"
+                                            },
+                                            "ObjectId": {
+                                                "description": "Assignment-Target-ObjectId",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "CallbackConfiguration": {
+                                "properties": {
+                                    "DurationBeforeTimeout": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "CallbackUriPath": {
+                                "type": "string"
+                            },
+                            "CustomExtensionStageInstanceId": {
+                                "type": "string"
+                            },
+                            "RequestType": {
+                                "type": "string"
+                            },
+                            "Requestor": {
+                                "properties": {
+                                    "DisplayName": {
+                                        "description": "Requestor-DisplayName",
+                                        "type": "string"
+                                    },
+                                    "Id": {
+                                        "description": "Requestor-Id",
+                                        "type": "string"
+                                    },
+                                    "ObjectId": {
+                                        "description": "Requestor-ObjectId",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "Stage": {
+                                "type": "string"
+                            },
+                            "State": {
+                                "type": "string"
+                            },
+                            "Status": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "kind": "Http",
+                "operationOptions": "IncludeAuthorizationHeadersInOutputs",
+                "type": "Request"
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {}
+        }
+    }
+}
