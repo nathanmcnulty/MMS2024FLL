@@ -1,10 +1,10 @@
 # Send LAPS password
 
-This example allows specific users to request the LAPS password for their devices and will send it to them via Teams.
+This example allows specific users to request the LAPS password for their devices and will send it to them via Teams. This might be a good use case for developers, lab instructors, and similar, but a better solution for most users will be an endpoint privilege management solution that allows elevating only specific processes.
 
 ## 1. Create and update the Logic App
 
-> !IMPORTANT
+> [!IMPORTANT]
 > Microsoft performs hardening of Logic Apps deployed through Entitlement management. It is recommended to create these from the catalog rather than an ARM template.
 
 To create the Logic App, go under the Catalog - Custom Extensions, and click Add a custom extension. During the wizard, select "Request workflow", "Launch and Continue", and then fill in the details to create the logic app and complete the wizard.

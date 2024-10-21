@@ -84,7 +84,7 @@ New-MgBetaEntitlementManagementAccessPackageResourceRoleScope -AccessPackageId $
 
 ## 5. Create access package policies
 
-> !NOTE
+> [!NOTE]
 > The groups in the code below must already exist. If they do not, you will need to create them.
 
 Create a policy that always provides access:

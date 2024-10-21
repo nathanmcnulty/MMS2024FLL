@@ -1,10 +1,12 @@
 # Limit SMS
 
-Purpose of this example
+This example can be used to limit and eventually remove SMS use for MFA. We create a group governed by an Access Package, and this allows us to turn off SMS by default and allow users to make requests for exceptions. Additionally, this example has a script to automatically add current SMS users to the group to ensure they don't experience disruption.
+
+The example limits eligibility to 1 year at which point new requests cannot be made. This can be changed in the policy section of the access package.
 
 ## 1. Get or create the security group
 
-This example uses a group...
+This example uses a group assigned to the SMS authentication method to limit who can use SMS.
 
 To create a new group populated with all users who have previously registered SMS:
 
@@ -104,7 +106,6 @@ $params = @{
   displayName = "Allow SMS"
   description = "Allow use of SMS for MFA"
 }
-
 $packageId = (New-MgBetaEntitlementManagementAccessPackage -BodyParameter $params).Id
 
 ```
@@ -127,12 +128,10 @@ $role = @{
     originSystem = "AadGroup"
   }
 }
-
 $scope = @{
   originId = "$groupId"
   originSystem = "AadGroup"
 }
-
 New-MgBetaEntitlementManagementAccessPackageResourceRoleScope -AccessPackageId $packageId -AccessPackageResourceRole $role -AccessPackageResourceScope $scope
 
 ```
@@ -174,6 +173,6 @@ $params = @{
     )
   }
 }
-
 New-MgBetaEntitlementManagementAccessPackageAssignmentPolicy -BodyParameter $params
+
 ```

@@ -1,12 +1,12 @@
 # Travel exclusions
 
-Purpose of this example
+Geo-blocking policies are still surprisingly effective in many cases. For organizations that only operate in a few countries or a majority of users do not travel, geo-blocking is a great policy to have in place and alert on.
+
+This example allows users who are travelling to blocked countries to be excluded from the policy for 7 days where the user can extend access if needed. You can customize the policy settings to fit your needs :)
 
 ## 1. Setting up the security group
 
-This example uses a group...
-
-To create a new group:
+This example uses a group excluded from a geo-blocking CA policy. To create a new group:
 
 ```powershell
 Connect-MgGraph -Scopes Group.ReadWrite.All
@@ -36,7 +36,7 @@ If you don't have a CA policy, the following code will create a policy, create a
 Connect-MgGraph -Scopes Policy.ReadWrite.ConditionalAccess
 
 # Import policy
-$body = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/nathanmcnulty/Entra/refs/heads/main/identity-governance/entitlement-management/examples/conditional-access/travel-exclusion/travel-exclusion.json").Content
+$body = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/nathanmcnulty/MMS2024FLL/refs/heads/main/entra-entitlement-management/examples/conditional-access/travel-exclusion/travel-exclusion.json").Content
 
 $policyId = (Invoke-MgGraphRequest -Uri "/beta/identity/conditionalAccess/policies" -Body $body -Method POST).Id
 

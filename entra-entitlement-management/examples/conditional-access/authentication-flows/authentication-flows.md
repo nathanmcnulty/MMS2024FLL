@@ -1,12 +1,16 @@
 # Allow Authentication flows
 
-Purpose of this example
+Authentication flows can provide nice user experiences but are inherently risky. Microsoft recommends blocking device code flow and authentication transfer by default and only enabling users to use them when needed.
+
+This example creates a Conditional Access policy (in report only) that enables users to request an access package that will exclude them from the policy. You can use use the following (slow) command to find out if any users are using device code flow before enabling the policy.
+
+```powershell
+Get-MgBetaAuditLogSignIn -Filter "AuthenticationProtocol eq 'deviceCode'"
+```
 
 ## 1. Get or create the security group
 
-This example uses a group...
-
-To create a new group:
+This example uses a group to exclude users from a Conditional Access policy. To create a new group:
 
 ```powershell
 Connect-MgGraph -Scopes Group.ReadWrite.All
@@ -35,7 +39,7 @@ If you don't have a CA policy...
 ```powershell
 Connect-MgGraph -Scopes Policy.ReadWrite.ConditionalAccess
 
-$body = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/nathanmcnulty/Entra/refs/heads/main/identity-governance/entitlement-management/examples/conditional-access/authentication-flows/block-authentication-flows.json").Content
+$body = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/nathanmcnulty/MMS2024FLL/refs/heads/main/entra-entitlement-management/examples/conditional-access/authentication-flows/block-authentication-flows.json").Content
 
 $policyId = (Invoke-MgGraphRequest -Uri "/beta/identity/conditionalAccess/policies" -Body $body -Method POST).Id
 

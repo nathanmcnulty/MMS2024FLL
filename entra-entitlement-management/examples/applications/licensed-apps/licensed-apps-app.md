@@ -1,13 +1,13 @@
 # Grant access to licensed applications via app
 
-> Completed, probably need wordsmithing
+This example is designed to cover scenarios where we have licensed apps in Entra that automatically provision accounts that incur billing. This can be used for non-licensed apps as well, but we might not need the same approval process as we would for licensed applications.
 
-This example covers scenarios where we have licensed apps in Entra that automatically provision accounts that incur billing. This can be used for non-licensed apps as well, but we might not need the same approval process as we would for licensed applications.
-
-> !NOTE
+> [!NOTE]
 > There are two ways to configure this scenario: 1) [Group membership assigned to the app](licensed-apps-group.md), 2) Directly assigned to the app (this example). You will need to use the group option if you want to pass the group as a claim via SSO.
 
 ## 1. Add the applicaiton to the catalog
+
+This will search for your directory for the name you put in ($name) and present a GUI for you to select the correct application in the event there are more than one with that name (like dev, prod, etc.). Alternatively, you can get the application ID directly from Entra and use that for $appId. Note that this will pop up a dialog for you to select the correctr application, and this sometimes opens behind other apps...
 
 ```powershell
 Connect-MgGraph -Scopes Application.Read.All,EntitlementManagement.ReadWrite.All
@@ -37,7 +37,7 @@ $resourceId = (Get-MgBetaEntitlementManagementAccessPackageCatalogAccessPackageR
 
 ## 2. Create the Access Package
 
-> !NOTE
+> [!NOTE]
 > Remember to change the display name to match the application 
 
 ```powershell
@@ -56,14 +56,16 @@ $packageId = (New-MgBetaEntitlementManagementAccessPackage -BodyParameter $param
 
 ## 3. Add the application to the access package
 
+Some Entra applications have special roles, so the first command here will present you with the available roles for the app to select from. Note that this will pop up a dialog for you to select the correctr application, and this sometimes opens behind other apps...
+
 ```powershell
 Connect-MgGraph -Scopes EntitlementManagement.ReadWrite.All
 
-$appRoleId = ($sp.AppRoles | Out-GridView -PassThru).Id
+$appRole = (Get-MgBetaServicePrincipal -ServicePrincipalId $appId).AppRoles | Out-GridView -PassThru
 
 $role = @{
-  originId = "$appRoleId"
-  displayName = "DocuSign Sender"
+  originId = "$($appRole.Id)"
+  displayName = "$($appRole.Description)"
   originSystem = "AadApplication"
   accessPackageResource = @{
     id = "$resourceId"
@@ -86,7 +88,7 @@ New-MgBetaEntitlementManagementAccessPackageResourceRoleScope -AccessPackageId $
 
 For this example, we're going to look at how we can have multiple approval stages, first stage for the manager with fallback to a group you will need to define and a second stage for finance to sign off.
 
-> !NOTE
+> [!NOTE]
 > The fallback group and finance group in the code below must already exist. If you don't have existing groups you can use, you will need to create them first.
 
 ```powershell

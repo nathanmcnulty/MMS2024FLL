@@ -6,7 +6,7 @@ This example allows users to opt-in to OS upgrades and can also be used to force
 
 This example uses a group to enable devices for Feature Updates.
 
-> !IMPORTANT
+> [!IMPORTANT]
 > The Logic App created later will make calls to add devices to a groupId that is part of the URI. Take note of this groupID as we will need it later.
 
 ```powershell
@@ -22,7 +22,7 @@ Write-Output "The following group ID will be needed for updating the Logic App: 
 
 ## 2. Create and update the Logic App
 
-> !IMPORTANT
+> [!IMPORTANT]
 > Microsoft performs hardening of Logic Apps deployed through Entitlement management. It is recommended to create these from the catalog rather than an ARM template.
 
 To create the Logic App, go under the Catalog - Custom Extensions, and click Add a custom extension. During the wizard, select "Request workflow", "Launch and Continue", and then fill in the details to create the logic app and complete the wizard.

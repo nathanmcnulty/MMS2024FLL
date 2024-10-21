@@ -2,13 +2,9 @@
 
 This example will trigger a logic app to deliver a Temporary Access Pass with instructions to help guide the user through setting up a passkey in Microsoft Authenticator and set a Conditional Access policy that will enforce phishing resistant authentication. The logic app template currently shows how to send the TAP via Teams and via email using Azure Communication Services.
 
-> !NOTE
-> Ideas for improvement: 
-> * Create automation to update a group with users who do not have MFA yet, then exclude that group from the CA policy
-
 ## 1. Create and update the Logic App
 
-> !IMPORTANT
+> [!IMPORTANT]
 > Microsoft performs hardening of Logic Apps deployed through Entitlement management. It is recommended to create these from the catalog rather than an ARM template.
 
 To do this, we go under the Catalog - Custom Extensions - Add a custom extension. During the wizard, select "Request workflow", "Launch and Continue", and then fill in the details to create the logic app and complete the wizard.
@@ -28,7 +24,7 @@ $customExtensionId = (Get-MgBetaEntitlementManagementAccessPackageCatalogAccessP
 
 ## 2. Granting the Logic App permissions
 
-The final step is to enable a Managed Identity on the Logic App and grant it the permissions needed to read the user's devices and get the LAPS password for them.
+The next step is to enable a Managed Identity on the Logic App and grant it the permissions needed to read the user's devices and get the LAPS password for them.
 
 ```powershell
 $MIObjectId = "c449c80d-0d9c-4e04-b340-00dcf7e2d878"
@@ -74,12 +70,12 @@ $groupId = (Get-MgBetaGroup -Filter "DisplayName eq '$name'").Id
 
 ## 4. Create the Conditional Access policy
 
-If you don't have a CA policy...
+If you don't have a CA policy, the following script will create it for you:
 
 ```powershell
 Connect-MgGraph -Scopes Policy.ReadWrite.ConditionalAccess
 
-$body = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/nathanmcnulty/Entra/refs/heads/main/identity-governance/entitlement-management/examples/authentication/passkey-rollout/passkey-rollout-cap.json").Content
+$body = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/nathanmcnulty/MMS2024FLL/refs/heads/main/entra-entitlement-management/examples/authentication/passkey-rollout/passkey-rollout-cap.json").Content
 
 $policyId = (Invoke-MgGraphRequest -Uri "/beta/identity/conditionalAccess/policies" -Body $body -Method POST).Id
 

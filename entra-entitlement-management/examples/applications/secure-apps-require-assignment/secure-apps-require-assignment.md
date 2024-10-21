@@ -1,7 +1,5 @@
 # Secure apps by requiring assignment
 
-> Completed, could use wordsmithing
-
 Some applications, such as Azure CLI tools, AzureAD PowerShell, Graph PowerShell, and Exchange PowerShell, are common targets for abuse. Most users will never need access to these, and some users may only need occasional access.
 
 The purpose of this Access Package is to remove default access and provide a way for those who don't always need access to request it when they do.
@@ -10,7 +8,7 @@ The purpose of this Access Package is to remove default access and provide a way
 
 This example uses a group to allow access to powerful apps that we will block by default for most users.
 
-> !WARNING
+> [!WARNING]
 > Only create one group at a time. Complete the example, then come back and do it again for a different group. Some applications may be registered by default while others aren't. You can find the list of well-known Microsoft applications and their application IDs here: [Application IDs of commonly used Microsoft applications](https://learn.microsoft.com/en-us/troubleshoot/azure/entra/entra-id/governance/verify-first-party-apps-sign-in)  
 
 To create a new group for Azure CLI:
@@ -128,7 +126,7 @@ $resourceId = (Get-MgBetaEntitlementManagementAccessPackageCatalogAccessPackageR
 
 ## 4. Create the Access Package
 
-> !NOTE
+> [!NOTE]
 > Remember to change the display name to match the application 
 
 ```powershell
@@ -175,7 +173,7 @@ New-MgBetaEntitlementManagementAccessPackageResourceRoleScope -AccessPackageId $
 
 For this example, we might want a couple of policies - one for those who should always have access and another that must activate their access.
 
-> !NOTE
+> [!NOTE]
 > The groups in the code below must already exist. If they do not, you will need to create them.
 
 Create a policy that always provides access:
