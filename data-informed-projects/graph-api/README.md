@@ -60,16 +60,28 @@ $headers = @{
   Content = "application/json"
 }
 Invoke-WebRequest -Uri "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/04faf88e-6fe3-46df-8d9c-6da64b912f5b" -Headers $headers
-
+(Invoke-WebRequest -Uri "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/04faf88e-6fe3-46df-8d9c-6da64b912f5b" -Headers $headers).Content
 ```
 
 ![img](./img/invoke-webrequest.png)
 
 **Invoke-RestMethod** is designed for working with REST APIs and has much better handling of JSON, converts to objects better, and will be easier to work with if dealing with pagination
 
+```powershell
+$headers = @{ 
+  Authorization = "Bearer $token"
+  Content = "application/json"
+}
+Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/04faf88e-6fe3-46df-8d9c-6da64b912f5b" -Headers $headers
+```
+
 ![img](./img/invoke-restmethod.png)
 
 **Invoke-MgGraphRequest** builds on Invoke-RestMethod and abstracts tokens, pagination, and some other headers so we don’t need to pass them with our requests (or makes it much easier to, like –ConsistencyLevel eventual)
+
+```powershell
+Invoke-MgGraphRequest -Uri "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/04faf88e-6fe3-46df-8d9c-6da64b912f5b"
+```
 
 ![img](./img/invoke-mggraphrequest.png)
 
