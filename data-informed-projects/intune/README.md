@@ -70,7 +70,7 @@ Automation below would not have happened without this blog:
 Automate creating remediation scripts from the community library:
 
 ```powershell
-Invoke-WebREquest -Uri "https://github.com/JayRHa/EndpointAnalyticsRemediationScripts/archive/refs/heads/main.zip" -OutFile .\remediations.zip
+Invoke-WebRequest -Uri "https://github.com/JayRHa/EndpointAnalyticsRemediationScripts/archive/refs/heads/main.zip" -OutFile .\remediations.zip
 Expand-Archive ".\remediations.zip“
 $path = ".\remediations\EndpointAnalyticsRemediationScripts-main\Get-BitlockerRecoveryKey“
 $detection= [convert]::ToBase64String((Get-Content $path\detection_BitlockerRecoveryKey.ps1 -AsByteStream))
