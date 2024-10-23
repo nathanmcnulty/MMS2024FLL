@@ -4,11 +4,13 @@
 
 Intune heavily leverages the Graph API as well, but when dealing with devices, we almost always want to query Intune Graph API endpoints instead of Entra.
 
-**Get-MgDevice**
+**Get-MgDevice**  
 ![img](./img/get-mgdevice.png)
 
-**Get-MgDeviceManagementManagedDevice**
+**Get-MgDeviceManagementManagedDevice**  
 ![img](./img/get-mgdevicemanagementmanageddevice.png)
+
+### Examples
 
 ```powershell
 Find-MgGraphCommand -uri "/deviceManagement/managedDevices"
