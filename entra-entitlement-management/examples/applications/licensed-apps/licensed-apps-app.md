@@ -5,7 +5,7 @@ This example is designed to cover scenarios where we have licensed apps in Entra
 > [!NOTE]
 > There are two ways to configure this scenario: 1) [Group membership assigned to the app](licensed-apps-group.md), 2) Directly assigned to the app (this example). You will need to use the group option if you want to pass the group as a claim via SSO.
 
-## 1. Add the applicaiton to the catalog
+## 1. Add the application to the catalog
 
 This will search for your directory for the name you put in ($name) and present a GUI for you to select the correct application in the event there are more than one with that name (like dev, prod, etc.). Alternatively, you can get the application ID directly from Entra and use that for $appId. Note that this will pop up a dialog for you to select the correctr application, and this sometimes opens behind other apps...
 
