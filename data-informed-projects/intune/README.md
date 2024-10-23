@@ -82,7 +82,7 @@ $body = @{
   "@odata.type“ = "#microsoft.graph.deviceHealthScript"
   publisher = "JayRHa"
   version = “1"
-  displayName = "Remediation package test"
+  displayName = "Get-BitlockerRecoveryKey"
   description = ""
   detectionScriptContent = "$detection"
   remediationScriptContent = "$remediation"
@@ -95,7 +95,7 @@ Invoke-MgGraphRequest -Method POST -Uri "https://graph.microsoft.com/beta/device
 Automate retrieving remediation results:
 
 ```powershell
-$deviceHealthScript = (Get-MgBetaDeviceManagementDeviceHealthScript -Filter "DisplayName eq 'Get-LocalAdmins'").Id
+$deviceHealthScript = (Get-MgBetaDeviceManagementDeviceHealthScript -Filter "DisplayName eq 'Get-BitlockerRecoveryKey'").Id
 $body = @{
         "reportName" = "DeviceRunStatesByProactiveRemediation"
         "filter" = "PolicyId eq '$deviceHealthScript'"
