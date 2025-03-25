@@ -384,19 +384,5 @@
         }
     },
     "parameters": {
-        "$connections": {
-            "value": {
-                "acsemail-1": {
-                    "connectionId": "/subscriptions/c9b84fe9-cf00-4006-b485-9b7be3eaf5b8/resourceGroups/rg-sml-mgmt/providers/Microsoft.Web/connections/acsemail-1",
-                    "connectionName": "acsemail-1",
-                    "id": "/subscriptions/c9b84fe9-cf00-4006-b485-9b7be3eaf5b8/providers/Microsoft.Web/locations/westus2/managedApis/acsemail"
-                },
-                "teams-1": {
-                    "connectionId": "/subscriptions/c9b84fe9-cf00-4006-b485-9b7be3eaf5b8/resourceGroups/rg-sml-mgmt/providers/Microsoft.Web/connections/teams-2",
-                    "connectionName": "teams-2",
-                    "id": "/subscriptions/c9b84fe9-cf00-4006-b485-9b7be3eaf5b8/providers/Microsoft.Web/locations/westus2/managedApis/teams"
-                }
-            }
-        }
     }
 }
